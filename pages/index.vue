@@ -165,7 +165,7 @@
                 <div class="sidenav-footer mx-3 ">
                     <div class="card card-background shadow-none card-background-mask-secondary" id="sidenavCard">
                         <div class="full-background"
-                            style="background-image: url('../assets/img/curved-images/white-curved.jpeg')"></div>
+                            style="background-image: url('/assets/img/curved-images/white-curved.jpeg')"></div>
                         <div class="card-body text-start p-3 w-100">
                             <div
                                 class="icon icon-shape icon-sm bg-white shadow text-center mb-3 d-flex align-items-center justify-content-center border-radius-md">
@@ -206,7 +206,8 @@
                             <ul class="navbar-nav  justify-content-end">
                                 <li class="nav-item d-flex align-items-center">
                                     <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
-                                        <i class="fa fa-user me-sm-1"></i>
+                                        <!-- <i class="fa fa-user me-sm-1"></i> -->
+                                        <font-awesome-icon icon="fa-brands fa-twitter-square" />
                                         <span class="d-sm-inline d-none">Supawit chitpreecha</span>
                                     </a>
                                 </li>
@@ -434,7 +435,21 @@
                         <div class="col-12">
                             <div class="card mb-4">
                                 <div class="card-header pb-0">
-                                    <h6>Cryptocurrencies</h6>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="p-2">
+                                            <h6>Cryptocurrencies</h6>
+
+                                        </div>
+                                        <div class="p-2">
+                                            <button class="btn btn-outline-primary btn-sm mb-0 mr-1"
+                                                @click="changePage(false)">
+                                                < </button>
+                                                    <button @click="changePage(true)"
+                                                        class="btn btn-outline-primary btn-sm mb-0"> > </button>
+
+                                        </div>
+                                    </div>
+
                                 </div>
                                 <div class="card-body px-0 pt-0 pb-2">
                                     <div class="table-responsive p-4">
@@ -689,6 +704,14 @@ export default {
             } else {
                 console.error(`Failed to fetch ${crypto}:`, response.statusText);
             }
+        },
+
+        changePage(change: boolean) {
+            const page = this.pageData.page + (change ? 1 : -1);
+            if (page <= 0) return false;
+
+            this.pageData.page = page;
+            this.fetchList(this.pageData.page);
         }
 
     },
@@ -698,5 +721,9 @@ export default {
 <style>
 .text-right {
     text-align: right !important;
+}
+
+.mr-1 {
+    margin-right: 5px;
 }
 </style>
